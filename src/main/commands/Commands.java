@@ -16,7 +16,7 @@ public class Commands {
 
             switch (command) {
                 case "in" -> {
-                    in();
+                    in(manager);
                     inCommand(manager);
                 }
                 case "del" -> {
@@ -64,7 +64,8 @@ public class Commands {
     }
 
 
-    public void in() {
+    public void in(PeopleManager manager) {
+        manager.addPersonTEST();
     }
 
     public void del() {
@@ -88,14 +89,11 @@ public class Commands {
 
     public void print(PeopleManager manager) {
         System.out.println("Список юзеров:");
-        ArrayList<Person> tmpArr = manager.getArrPersons();
+        ArrayList<Person> tmpSet = new ArrayList<>(manager.getArrPersons());
 
-        if (tmpArr != null && !tmpArr.isEmpty()) {
-            for (Person p : tmpArr) {
-                System.out.println(p);
-//                System.out.println(p.getName()); // Вывод объекта Person
-//                System.out.println(p.getAge()); // Вывод объекта Person
-//                System.out.println(p.getPassport()); // Вывод объекта Person
+        if (manager.getArrPersons() != null && !manager.getArrPersons().isEmpty()) {
+            for (Person element: tmpSet) {
+                System.out.println(element);
             }
         } else {
             System.out.println("Список пуст или равен null.");

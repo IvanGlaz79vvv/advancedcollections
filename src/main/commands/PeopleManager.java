@@ -6,7 +6,7 @@ import java.util.*;
 
 public class PeopleManager {
 
-    public TreeSet<Person> arrPersons = new TreeSet<>(
+    private TreeSet<Person> arrPersons = new TreeSet<>(
             Comparator.comparing(Person::getPassport)
     );
 
@@ -27,7 +27,6 @@ public class PeopleManager {
             }
 
             for (Person e : arrPersons) {
-
                 if (e.getPassport() == passport) {
                     System.out.println("Пользователь с таким паспортом уже существует. Добавить нового пользователя не удалось.");
                     success = false;

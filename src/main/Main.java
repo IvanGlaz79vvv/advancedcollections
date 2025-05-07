@@ -20,22 +20,26 @@ public class Main {
 
         Person ivan = new Person(1234567890L, "Ivan", 45);
         Person ivan2 = new Person(1234567891L, "Ivan", 45);
-        Person anastasia = new Person(1234567892L, "Anastasia", 30);
-        Person petr = new Person(1234567893L, "Petr", 15);
-        Person olga = new Person(1234567894L, "Olga", 12);
+        Person alex = new Person(1234567892L, "Alex", 45);
+        Person anastasia = new Person(1234567893L, "Anastasia", 30);
+        Person petr = new Person(1234567894L, "Petr", 15);
+        Person olga = new Person(1234567895L, "Olga", 12);
+        Person igor = new Person(1234567896L, "Igor", 60);
 
-        manager.arrPersons.add(ivan);
-        manager.arrPersons.add(ivan2);
-        manager.arrPersons.add(anastasia);
-        manager.arrPersons.add(petr);
-        manager.arrPersons.add(olga);
-
-        TreeMap
+        manager.getArrPersons().add(ivan);
+        manager.getArrPersons().add(ivan2);
+        manager.getArrPersons().add(ivan2);
+        manager.getArrPersons().add(anastasia);
+        manager.getArrPersons().add(petr);
+        manager.getArrPersons().add(olga);
+        manager.getArrPersons().add(igor);
 
 
         Commands commands = new Commands();
         commands.print(manager);
-        commands.in(manager);
-        commands.print(manager);
+//        commands.in(manager);
+        commands.young(manager);
+        commands.old(manager);
+        commands.avg(manager);
     }
 }

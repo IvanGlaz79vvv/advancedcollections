@@ -24,11 +24,11 @@ public class Commands {
                     inCommand(manager);
                 }
                 case "count" -> {
-                    count();
+                    count(manager);
                     inCommand(manager);
                 }
                 case "avg" -> {
-                    avg();
+                    avg(manager);
                     inCommand(manager);
                 }
                 case "median" -> {
@@ -36,11 +36,11 @@ public class Commands {
                     inCommand(manager);
                 }
                 case "young" -> {
-                    young();
+                    young(manager);
                     inCommand(manager);
                 }
                 case "old" -> {
-                    old();
+                    old(manager);
                     inCommand(manager);
                 }
                 case "print" -> {
@@ -71,28 +71,43 @@ public class Commands {
     public void del() {
     }
 
-    public void count() {
+    public void count(PeopleManager manager) {
+        System.out.println("количество пользователей: " + manager.getArrPersons().size());
     }
 
-    public void avg() {
+    public void avg(PeopleManager manager) {//todo средний возраст всех пользователей "Средний возраст: "
+        int lengthOfArrPersons = manager.getArrPersons().size();
+        int sumOfAges = 0;
+        for (Person p : manager.getArrPersons()) {
+            sumOfAges += p.getAge();
+        }
+        float avgAgeArrPersons = sumOfAges / lengthOfArrPersons;
+        System.out.println("\nСредний возраст: " + avgAgeArrPersons);
     }
 
-    public void median() {
+    public void median() {//todo медиана возраста "Медиана возраста: "
     }
 
-    public void young() {
+    public void young(PeopleManager manager) {
+        ArrayList<Person> ageSortArrPersons = new ArrayList<>(manager.getArrPersons());
+        ageSortArrPersons.sort(Comparator.comparing(Person::getAge));
+        System.out.println("\nСамый молодой пользователь: " + ageSortArrPersons.getFirst());
     }
 
-    public void old() {
+    public void old(PeopleManager manager) {
+        ArrayList<Person> ageSortArrPersons = new ArrayList<>(manager.getArrPersons());
+        ageSortArrPersons.sort(Comparator.comparing(Person::getAge));
+        System.out.println("\nСамый старый пользователь: " + ageSortArrPersons.getLast());
     }
 
 
     public void print(PeopleManager manager) {
         System.out.println("Список юзеров:");
-        ArrayList<Person> tmpSet = new ArrayList<>(manager.getArrPersons());
+        ArrayList<Person> ageSortArrPersons = new ArrayList<>(manager.getArrPersons());
+        ageSortArrPersons.sort(Comparator.comparing(Person::getAge));
 
         if (manager.getArrPersons() != null && !manager.getArrPersons().isEmpty()) {
-            for (Person element: tmpSet) {
+            for (Person element : ageSortArrPersons) {
                 System.out.println(element);
             }
         } else {

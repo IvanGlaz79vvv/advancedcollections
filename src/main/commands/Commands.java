@@ -32,7 +32,7 @@ public class Commands {
                     inCommand(manager);
                 }
                 case "median" -> {
-                    median();
+                    median(manager);
                     inCommand(manager);
                 }
                 case "young" -> {
@@ -63,19 +63,18 @@ public class Commands {
         }
     }
 
-
     public void in(PeopleManager manager) {
         manager.addPersonTEST();
     }
 
     public void del() {
-    }
+    }//todo Приложение запрашивает номер паспорта и удаляет пользователя с таким паспортом.
 
     public void count(PeopleManager manager) {
         System.out.println("количество пользователей: " + manager.getArrPersons().size());
     }
 
-    public void avg(PeopleManager manager) {//todo средний возраст всех пользователей "Средний возраст: "
+    public void avg(PeopleManager manager) {
         int lengthOfArrPersons = manager.getArrPersons().size();
         int sumOfAges = 0;
         for (Person p : manager.getArrPersons()) {
@@ -85,7 +84,21 @@ public class Commands {
         System.out.println("\nСредний возраст: " + avgAgeArrPersons);
     }
 
-    public void median() {//todo медиана возраста "Медиана возраста: "
+    public void median(PeopleManager manager) {
+        ArrayList<Person> ageSortArrPersons = new ArrayList<>(manager.getArrPersons());
+        ageSortArrPersons.sort(Comparator.comparing(Person::getAge));
+
+        int lengthOfAgeSortArrPersons = ageSortArrPersons.size();
+        float mediana = 0;
+        if (lengthOfAgeSortArrPersons % 2 == 0) {
+            int tmpMediana = lengthOfAgeSortArrPersons / 2;
+            int previous = (int) tmpMediana - 1;
+            int next = (int) tmpMediana;
+            mediana =  (float) (ageSortArrPersons.get(previous).getAge() + ageSortArrPersons.get(next).getAge()) / 2;
+        } else {
+            mediana = ageSortArrPersons.get(lengthOfAgeSortArrPersons / 2 ).getAge();
+        }
+        System.out.println("\nМедиана возраста: " + mediana);
     }
 
     public void young(PeopleManager manager) {

@@ -1,5 +1,6 @@
 package main.commands;
 
+import com.sun.source.doctree.EscapeTree;
 import main.persons.Person;
 
 import java.util.*;
@@ -7,7 +8,7 @@ import java.util.*;
 public class Commands {
 
     public void inCommand(PeopleManager manager) {
-        Scanner scanner = new Scanner(System.in);
+        Scanner scanner = manager.scanner;
         System.out.println("\nВведите команду: ");
         String command = null;
         try {
@@ -20,7 +21,7 @@ public class Commands {
                     inCommand(manager);
                 }
                 case "del" -> {
-                    del();
+                    del(manager);
                     inCommand(manager);
                 }
                 case "count" -> {
@@ -64,11 +65,38 @@ public class Commands {
     }
 
     public void in(PeopleManager manager) {
-        manager.addPersonTEST();
+        manager.addPerson();
     }
 
-    public void del() {
-    }//todo Приложение запрашивает номер паспорта и удаляет пользователя с таким паспортом.
+    public void del(PeopleManager manager) {
+        Long passport = 0L;
+        boolean success = false;
+        Person removedPerson = null;
+        while (!success) {
+            System.out.println("Введите номер паспорта для удаления: ");
+
+            try {
+                passport = Long.valueOf(manager.scanner.nextLine().strip());
+                success = true;
+            } catch (Exception e) {
+                System.out.println("неверный формат данных. Введите заново.");
+            }
+
+            for (Person e : manager.getArrPersons()) {
+                if (e.getPassport() == passport) {
+                    removedPerson = e;
+                }
+            }
+
+            if (removedPerson != null) {
+                manager.getArrPersons().remove(removedPerson);
+                System.out.println("Пользователь с паспортом " + passport + " удалён");
+            } else {
+                System.out.println("Пользователь с таким паспортом не найден.");
+                success = false;
+            }
+        }
+    }
 
     public void count(PeopleManager manager) {
         System.out.println("количество пользователей: " + manager.getArrPersons().size());
@@ -94,9 +122,9 @@ public class Commands {
             int tmpMediana = lengthOfAgeSortArrPersons / 2;
             int previous = (int) tmpMediana - 1;
             int next = (int) tmpMediana;
-            mediana =  (float) (ageSortArrPersons.get(previous).getAge() + ageSortArrPersons.get(next).getAge()) / 2;
+            mediana = (float) (ageSortArrPersons.get(previous).getAge() + ageSortArrPersons.get(next).getAge()) / 2;
         } else {
-            mediana = ageSortArrPersons.get(lengthOfAgeSortArrPersons / 2 ).getAge();
+            mediana = ageSortArrPersons.get(lengthOfAgeSortArrPersons / 2).getAge();
         }
         System.out.println("\nМедиана возраста: " + mediana);
     }
@@ -113,9 +141,8 @@ public class Commands {
         System.out.println("\nСамый старый пользователь: " + ageSortArrPersons.getLast());
     }
 
-
     public void print(PeopleManager manager) {
-        System.out.println("Список юзеров:");
+        System.out.println("\n\nСписок юзеров:");
         ArrayList<Person> ageSortArrPersons = new ArrayList<>(manager.getArrPersons());
         ageSortArrPersons.sort(Comparator.comparing(Person::getAge));
 

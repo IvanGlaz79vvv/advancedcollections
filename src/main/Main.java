@@ -36,14 +36,17 @@ public class Main {
 
 
         Commands commands = new Commands();
-        commands.in(manager);
-        commands.count(manager);
-        commands.avg(manager);
-        commands.median(manager);
-        commands.young(manager);
-        commands.old(manager);
-        commands.print(manager);
-        commands.help();
-        commands.exit();
+        commands.inCommand(manager);
+//        commands.in(manager);
+//        commands.print(manager);
+//        commands.del(manager);//fixme
+//        commands.count(manager);
+//        commands.avg(manager);
+//        commands.median(manager);
+//        commands.young(manager);
+//        commands.old(manager);
+//        commands.print(manager);
+//        commands.help();
+//        commands.exit();
     }
 }

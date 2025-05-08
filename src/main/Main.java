@@ -4,8 +4,6 @@ import main.commands.Commands;
 import main.commands.PeopleManager;
 import main.persons.Person;
 
-import java.util.TreeMap;
-
 /**
 Вычислительная сложность команд:
  young и old должна быть O(log n) - TreeSet;
@@ -36,8 +34,8 @@ public class Main {
 
 
         Commands commands = new Commands();
-        commands.inCommand(manager);
-//        commands.in(manager);
+        commands.start(manager);
+//        commands.in(manager);//fixme
 //        commands.print(manager);
 //        commands.del(manager);//fixme
 //        commands.count(manager);

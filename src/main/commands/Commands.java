@@ -1,62 +1,58 @@
 package main.commands;
 
-import com.sun.source.doctree.EscapeTree;
 import main.persons.Person;
 
 import java.util.*;
 
 public class Commands {
 
-    public void inCommand(PeopleManager manager) {
-        Scanner scanner = manager.scanner;
+    public void start(PeopleManager manager) {
         System.out.println("\nВведите команду: ");
-        String command = null;
+
+        String command = manager.scanner.nextLine().strip();
         try {
-            command = scanner.nextLine();
-
-
             switch (command) {
                 case "in" -> {
                     in(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "del" -> {
                     del(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "count" -> {
                     count(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "avg" -> {
                     avg(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "median" -> {
                     median(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "young" -> {
                     young(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "old" -> {
                     old(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "print" -> {
                     print(manager);
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "help" -> {
                     help();
-                    inCommand(manager);
+                    start(manager);
                 }
                 case "exit" -> exit();
                 default -> {
                     System.out.println("Неизвестная команда. Попробуйте снова");
-                    scanner.close();
-                    inCommand(manager);
+//                    scanner.close();
+                    start(manager);
                 }
             }
         } catch (Exception e) {
@@ -65,7 +61,33 @@ public class Commands {
     }
 
     public void in(PeopleManager manager) {
-        manager.addPerson();
+//        manager.addPerson();
+        Long passport = 0L;
+        boolean success = false;
+        Person addPerson = null;
+        while (!success) {
+            System.out.println("Введите номер паспорта для добавления пользователя: ");
+
+            try {
+                passport = Long.valueOf(manager.scanner.nextLine().strip());
+                success = true;
+            } catch (Exception e) {
+                System.out.println("неверный формат данных. Введите заново.");
+            }
+
+            for (Person e : manager.getArrPersons()) {
+                if (e.getPassport() == passport) {
+                    addPerson = e;
+                }
+            }
+
+            if (addPerson != null) {
+                manager.getArrPersons().add(addPerson);
+                System.out.println("Пользователь с паспортом " + passport + " добавлен");
+            } /*else {
+//                System.out.println("Пользователь с таким паспортом не найден.");
+                success = false;*/
+        }
     }
 
     public void del(PeopleManager manager) {
@@ -175,7 +197,7 @@ public class Commands {
     }
 
     public void exit() {
-        System.out.println("Программа завершена");
+        System.out.println("\nПрограмма завершена");
         System.exit(0);
     }
 }

@@ -6,6 +6,7 @@ import java.util.*;
 
 public class PeopleManager {
     Scanner scanner = new Scanner(System.in);
+
     private TreeSet<Person> arrPersons = new TreeSet<>(
             Comparator.comparing(Person::getPassport)
     );
@@ -14,7 +15,8 @@ public class PeopleManager {
         return arrPersons;
     }
 
-    public Long addPassportPeopleManager(Scanner scanner) {
+   /* public Long getCheckNumberOfPassport() {
+        System.out.println("start getCheckNumberOfPassport");
         Long passport = 0L;
         boolean success = false;
         while (!success) {
@@ -36,13 +38,15 @@ public class PeopleManager {
         return passport;
     }
 
-    public String addNamePeopleManager(Scanner scanner) {
+    public String addNamePeopleManager() {
+        System.out.println("start addNamePeopleManager");
         System.out.println("Введите имя: ");
         String name = scanner.nextLine().strip();
         return name;
     }
 
-    public int addAgePeopleManager(Scanner scanner) {
+    public int addAgePeopleManager() {
+        System.out.println("start addAgePeopleManager");
         Integer age = 0;
         boolean success = false;
         while (!success) {
@@ -58,13 +62,13 @@ public class PeopleManager {
     }
 
     public void addPerson() {
-        long passport = addPassportPeopleManager(scanner);
-        String name = addNamePeopleManager(scanner);
-        int age = addAgePeopleManager(scanner);
+        long passport = getCheckNumberOfPassport();
+        String name = addNamePeopleManager();
+        int age = addAgePeopleManager();
 
         arrPersons.add(new Person(passport, name, age));
         scanner.close();
-    }
+    }*/
 
 
 }

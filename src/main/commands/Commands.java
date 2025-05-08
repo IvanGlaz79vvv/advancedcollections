@@ -7,7 +7,7 @@ import java.util.*;
 public class Commands {
     Scanner scanner = new Scanner(System.in);
 
-    public void start(PeopleManager manager) {
+    public void startProgramm(PeopleManager manager) {
         System.out.println("\nВведите команду: ");
 
         String command = scanner.nextLine().strip();
@@ -15,45 +15,45 @@ public class Commands {
             switch (command) {
                 case "in" -> {
                     in(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "del" -> {
                     del(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "count" -> {
                     count(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "avg" -> {
                     avg(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "median" -> {
                     median(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "young" -> {
                     young(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "old" -> {
                     old(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "print" -> {
                     print(manager);
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "help" -> {
                     help();
-                    start(manager);
+                    startProgramm(manager);
                 }
                 case "exit" -> exit();
                 default -> {
                     System.out.println("Неизвестная команда. Попробуйте снова");
 //                    scanner.close();
-                    start(manager);
+                    startProgramm(manager);
                 }
             }
         } catch (Exception e) {
@@ -109,21 +109,22 @@ public class Commands {
     }
 
     public void del(PeopleManager manager) {
-        Long passport = chekNumberofPassport();
-        Person removedPerson = null;
-        boolean checkForDeleteUser = true;
-
-        for (Person e : manager.getArrPersons()) {
-            if (e.getPassport() == passport) {
-                removedPerson = e;
+        if (manager.getArrPersons().size() == 0) {
+            System.out.println("Список пуст");
+        } else {
+            Long passport = chekNumberofPassport();
+            Person removedPerson = null;
+            for (Person e : manager.getArrPersons()) {
+                if (e.getPassport() == passport) {
+                    removedPerson = e;
+                }
             }
-        }
-        if (removedPerson != null) {
-            manager.getArrPersons().remove(removedPerson);
-            System.out.println("Пользователь с паспортом " + passport + " удалён");
-        }
-        if (!checkForDeleteUser) {
-            System.out.println("Пользователь с таким паспортом не найден.");
+            if (removedPerson != null) {
+                manager.getArrPersons().remove(removedPerson);
+                    System.out.println("Пользователь с паспортом " + passport + " удалён");
+                }else{
+                System.out.println("Пользователь с таким паспортом не найден.");
+            }
         }
     }
 

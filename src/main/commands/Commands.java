@@ -111,22 +111,19 @@ public class Commands {
     public void del(PeopleManager manager) {
         Long passport = chekNumberofPassport();
         Person removedPerson = null;
-        boolean success = false;
-        while (!success) {
-            for (Person e : manager.getArrPersons()) {
-                if (e.getPassport() == passport) {
-                    removedPerson = e;
-                }
-            }
+        boolean checkForDeleteUser = true;
 
-            if (removedPerson != null) {
-                manager.getArrPersons().remove(removedPerson);
-                System.out.println("Пользователь с паспортом " + passport + " удалён");
-                success = true;
+        for (Person e : manager.getArrPersons()) {
+            if (e.getPassport() == passport) {
+                removedPerson = e;
             }
-            if (!success) {
-                System.out.println("Пользователь с таким паспортом не найден.");
-            }
+        }
+        if (removedPerson != null) {
+            manager.getArrPersons().remove(removedPerson);
+            System.out.println("Пользователь с паспортом " + passport + " удалён");
+        }
+        if (!checkForDeleteUser) {
+            System.out.println("Пользователь с таким паспортом не найден.");
         }
     }
 

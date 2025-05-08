@@ -5,11 +5,12 @@ import main.persons.Person;
 import java.util.*;
 
 public class Commands {
+    Scanner scanner = new Scanner(System.in);
 
     public void start(PeopleManager manager) {
         System.out.println("\nВведите команду: ");
 
-        String command = manager.scanner.nextLine().strip();
+        String command = scanner.nextLine().strip();
         try {
             switch (command) {
                 case "in" -> {
@@ -60,50 +61,58 @@ public class Commands {
         }
     }
 
-    public void in(PeopleManager manager) {
-//        manager.addPerson();
+    public long chekNumberofPassport() {
         Long passport = 0L;
         boolean success = false;
-        Person addPerson = null;
         while (!success) {
-            System.out.println("Введите номер паспорта для добавления пользователя: ");
-
+            System.out.println("Введите номер паспорта: ");
             try {
-                passport = Long.valueOf(manager.scanner.nextLine().strip());
+                passport = Long.valueOf(scanner.nextLine().strip());
                 success = true;
             } catch (Exception e) {
                 System.out.println("неверный формат данных. Введите заново.");
             }
-
-            for (Person e : manager.getArrPersons()) {
-                if (e.getPassport() == passport) {
-                    addPerson = e;
-                }
-            }
-
-            if (addPerson != null) {
-                manager.getArrPersons().add(addPerson);
-                System.out.println("Пользователь с паспортом " + passport + " добавлен");
-            } /*else {
-//                System.out.println("Пользователь с таким паспортом не найден.");
-                success = false;*/
         }
+        return passport;
+    }
+
+    public String addName() {
+        String name = null;
+        System.out.println("Введите имя пользователя: ");
+        name = scanner.nextLine().strip();
+        return name;
+    }
+
+    public int chekAge() {
+        int age = 0;
+        boolean success = false;
+        while (!success) {
+            System.out.println("Введите возраст: ");
+            try {
+                age = Integer.valueOf(scanner.nextLine().strip());
+                success = true;
+            } catch (Exception e) {
+                System.out.println("неверный формат данных. Введите заново.");
+            }
+        }
+        return age;
+    }
+
+    public void in(PeopleManager manager) {
+        long passport = chekNumberofPassport();
+        String name = addName();
+        int age = chekAge();
+
+        manager.getArrPersons().add(new Person(passport, name, age));
+
+        System.out.println("Пользователь с паспортом " + passport + " добавлен");
     }
 
     public void del(PeopleManager manager) {
-        Long passport = 0L;
-        boolean success = false;
+        Long passport = chekNumberofPassport();
         Person removedPerson = null;
+        boolean success = false;
         while (!success) {
-            System.out.println("Введите номер паспорта для удаления: ");
-
-            try {
-                passport = Long.valueOf(manager.scanner.nextLine().strip());
-                success = true;
-            } catch (Exception e) {
-                System.out.println("неверный формат данных. Введите заново.");
-            }
-
             for (Person e : manager.getArrPersons()) {
                 if (e.getPassport() == passport) {
                     removedPerson = e;
@@ -113,9 +122,10 @@ public class Commands {
             if (removedPerson != null) {
                 manager.getArrPersons().remove(removedPerson);
                 System.out.println("Пользователь с паспортом " + passport + " удалён");
-            } else {
+                success = true;
+            }
+            if (!success) {
                 System.out.println("Пользователь с таким паспортом не найден.");
-                success = false;
             }
         }
     }
@@ -173,7 +183,7 @@ public class Commands {
                 System.out.println(element);
             }
         } else {
-            System.out.println("Список пуст или равен null.");
+            System.out.println("Список пуст.");
         }
     }
 

@@ -6,6 +6,12 @@ public class Person implements Comparable {
     private String name;
     private int age;
 
+    public Person(Long passport, String name, int age) {
+        this.passport = passport;
+        this.name = name;
+        this.age = age;
+    }
+
     public void setPassport(long passport) {
         this.passport = passport;
     }
@@ -15,14 +21,6 @@ public class Person implements Comparable {
     }
 
     public void setAge(int age) {
-        this.age = age;
-    }
-
-    public Person() {}
-
-    public Person(Long passport, String name, int age) {
-        this.passport = passport;
-        this.name = name;
         this.age = age;
     }
 
@@ -46,8 +44,8 @@ public class Person implements Comparable {
 
     @Override
     public String toString() {
-        return "\npassport: " + getPassport()+
-                "\nname: " + getName() +
-                ", \nage: " + getAge();
+        return "\npassport: " + passport+
+                "\nname: " + name +
+                "\nage: " + age;
     }
 }

@@ -61,47 +61,44 @@ public class Commands {
         }
     }
 
-    public long chekNumberofPassport() {
-        Long passport = 0L;
+    public long chekNumberForLong() {
+        long longNumber = 0L;
         boolean success = false;
         while (!success) {
-            System.out.println("Введите номер паспорта: ");
             try {
-                passport = Long.valueOf(scanner.nextLine().strip());
+                longNumber = Long.valueOf(scanner.nextLine().strip());
+                success = true;
+            } catch (Exception e) {
+                System.out.println("chekNumberForLong: неверный формат данных. Введите заново.");
+            }
+        }
+        return longNumber;
+    }
+
+    public int chekNumberForInteger() {
+        int intNumber = 0;
+        boolean success = false;
+        while (!success) {
+            try {
+                intNumber = Integer.valueOf(scanner.nextLine().strip());
                 success = true;
             } catch (Exception e) {
                 System.out.println("неверный формат данных. Введите заново.");
             }
         }
-        return passport;
+        return intNumber;
     }
 
     public String addName() {
-        String name = null;
-        System.out.println("Введите имя пользователя: ");
-        name = scanner.nextLine().strip();
-        return name;
-    }
-
-    public int chekAge() {
-        int age = 0;
-        boolean success = false;
-        while (!success) {
-            System.out.println("Введите возраст: ");
-            try {
-                age = Integer.valueOf(scanner.nextLine().strip());
-                success = true;
-            } catch (Exception e) {
-                System.out.println("неверный формат данных. Введите заново.");
-            }
-        }
-        return age;
-    }
+        return scanner.nextLine().strip();}
 
     public void in(PeopleManager manager) {
-        long passport = chekNumberofPassport();
+        System.out.println("Введите номер паспорта: ");
+        long passport = chekNumberForLong();
+        System.out.println("Введите имя пользователя: ");
         String name = addName();
-        int age = chekAge();
+        System.out.println("Введите возраст: ");
+        int age = chekNumberForInteger();
 
         manager.getArrPersons().add(new Person(passport, name, age));
 
@@ -112,7 +109,8 @@ public class Commands {
         if (manager.getArrPersons().size() == 0) {
             System.out.println("Список пуст");
         } else {
-            Long passport = chekNumberofPassport();
+            System.out.println("Введите номер паспорта для удаления");
+            long passport = chekNumberForLong();
             Person removedPerson = null;
             for (Person e : manager.getArrPersons()) {
                 if (e.getPassport() == passport) {
@@ -121,8 +119,8 @@ public class Commands {
             }
             if (removedPerson != null) {
                 manager.getArrPersons().remove(removedPerson);
-                    System.out.println("Пользователь с паспортом " + passport + " удалён");
-                }else{
+                System.out.println("Пользователь с паспортом " + passport + " удалён");
+            }else{
                 System.out.println("Пользователь с таким паспортом не найден.");
             }
         }
@@ -134,7 +132,7 @@ public class Commands {
 
     public void avg(PeopleManager manager) {
         int lengthOfArrPersons = manager.getArrPersons().size();
-        int sumOfAges = 0;
+        long sumOfAges = 0;
         for (Person p : manager.getArrPersons()) {
             sumOfAges += p.getAge();
         }
